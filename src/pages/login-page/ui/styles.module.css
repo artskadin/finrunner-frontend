@@ -1,0 +1,42 @@
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 400px;
+  margin: auto;
+}
+
+.login-form-container_block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.login-form_link-color {
+  color: var(--g-color-text-danger);
+}
+
+.login-form_link-color:hover {
+  color: var(--g-color-text-danger-heavy);
+}
+
+.login-form_footer {
+  display: flex;
+  /* margin-top: 20px; */
+  border-top: 1px solid var(--g-color-text-secondary);
+}
+
+.login-form_footer_register-btn {
+  margin: auto;
+  margin-top: 8px;
+}
+
+.tg-name-error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.login-form-second-action-btn {
+  max-width: fit-content;
+}

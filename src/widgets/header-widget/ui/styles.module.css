@@ -1,0 +1,50 @@
+.header-container {
+  display: flex;
+  height: 80px;
+  border-bottom: 1px solid #111111;
+  box-sizing: border-box;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.logo-container {
+  font-family: 'Roboto Mono';
+  margin-right: 40px;
+  transition: color 0.2s ease;
+}
+
+.logo-container span:first-child {
+  color: #0099ff;
+}
+
+.navigation {
+  display: flex;
+  font-size: 16px;
+}
+
+.navigation a {
+  transition: color 0.2s ease;
+}
+
+.navigation__active {
+  color: #4aa1f2;
+}
+
+.navigation a:not(:first-child) {
+  margin-left: 18px;
+}
+
+.navigation-auth {
+  margin-left: auto;
+}
+
+.add-telegram-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
