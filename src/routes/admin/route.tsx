@@ -4,7 +4,7 @@ import { useAuthStore } from '@/entities/user/model/authStore'
 import { queryClient } from '@/app/main'
 import { getMeApi, User } from '@/shared/api/user'
 
-export const Route = createFileRoute('/admin/')({
+export const Route = createFileRoute('/admin')({
   component: AdminPage,
   beforeLoad: ({ location }) => {
     const { accessToken, isLoading } = useAuthStore.getState()
