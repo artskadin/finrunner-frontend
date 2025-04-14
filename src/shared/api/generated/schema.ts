@@ -765,11 +765,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            id: string;
-                            fullname: string;
-                            shortname: string;
-                        }[];
+                        "application/json": components["schemas"]["currencySchema"][];
                     };
                 };
                 /** @description Default Response */
@@ -821,10 +817,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": {
-                        fullname: string;
-                        shortname: string;
-                    };
+                    "application/json": components["schemas"]["updateCurrencyBodySchema"];
                 };
             };
             responses: {
@@ -834,11 +827,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            id: string;
-                            fullname: string;
-                            shortname: string;
-                        };
+                        "application/json": components["schemas"]["currencySchema"];
                     };
                 };
                 /** @description Default Response */
@@ -910,11 +899,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            id: string;
-                            fullname: string;
-                            shortname: string;
-                        };
+                        "application/json": components["schemas"]["currencySchema"];
                     };
                 };
                 /** @description Default Response */
@@ -967,10 +952,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": {
-                        fullname: string;
-                        shortname: string;
-                    };
+                    "application/json": components["schemas"]["updateCurrencyBodySchema"];
                 };
             };
             responses: {
@@ -980,11 +962,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            id: string;
-                            fullname: string;
-                            shortname: string;
-                        };
+                        "application/json": components["schemas"]["currencySchema"];
                     };
                 };
                 /** @description Default Response */
@@ -1043,7 +1021,9 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": components["schemas"]["currencySchema"];
+                    };
                 };
             };
         };
@@ -1868,6 +1848,30 @@ export interface components {
             /** @enum {string} */
             type: "INTERNAL_SERVER_ERROR";
             message: string;
+        };
+        currencySchema: {
+            id: string;
+            fullname: string;
+            shortname: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        createCurrencySchema: {
+            fullname: string;
+            shortname: string;
+        };
+        getCurrencyByIdSchema: {
+            id: string;
+        };
+        updateCurrencyBodySchema: {
+            fullname: string;
+            shortname: string;
+        };
+        updateCurrencyParamsSchema: {
+            id: string;
+        };
+        deleteCurrencySchema: {
+            id: string;
         };
     };
     responses: never;

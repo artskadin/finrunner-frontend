@@ -1,9 +1,9 @@
 .root-content {
-  padding-left: 20px;
-  padding-right: 20px;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .main-content {
   display: flex;
-  margin-top: 20px;
+  padding-right: var(--global-right-padding);
 }

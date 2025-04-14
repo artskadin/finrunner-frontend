@@ -1,0 +1,1 @@
+export { CurrencyPage } from './ui'

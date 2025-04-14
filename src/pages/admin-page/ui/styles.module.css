@@ -1,0 +1,10 @@
+.admin-layout {
+  display: flex;
+}
+
+.admin-page-content {
+  flex-grow: 1;
+  padding-top: 20px;
+  padding-left: 20px;
+  overflow-y: auto;
+}

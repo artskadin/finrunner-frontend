@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as RulesIndexImport } from './routes/rules/index'
 import { Route as ProfileIndexImport } from './routes/profile/index'
@@ -18,12 +19,20 @@ import { Route as ExchangeIndexImport } from './routes/exchange/index'
 import { Route as ContactsIndexImport } from './routes/contacts/index'
 import { Route as BlogIndexImport } from './routes/blog/index'
 import { Route as AmlIndexImport } from './routes/aml/index'
-import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as authRegisterImport } from './routes/(auth)/register'
 import { Route as authLogoutImport } from './routes/(auth)/logout'
 import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as AdminUsersIndexImport } from './routes/admin/users/index'
+import { Route as AdminDashboardIndexImport } from './routes/admin/dashboard/index'
+import { Route as AdminCurrenciesIndexImport } from './routes/admin/currencies/index'
 
 // Create/Update Routes
+
+const AdminRouteRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -67,12 +76,6 @@ const AmlIndexRoute = AmlIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AdminIndexRoute = AdminIndexImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const authRegisterRoute = authRegisterImport.update({
   id: '/(auth)/register',
   path: '/register',
@@ -91,6 +94,24 @@ const authLoginRoute = authLoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AdminUsersIndexRoute = AdminUsersIndexImport.update({
+  id: '/users/',
+  path: '/users/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminDashboardIndexRoute = AdminDashboardIndexImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminCurrenciesIndexRoute = AdminCurrenciesIndexImport.update({
+  id: '/currencies/',
+  path: '/currencies/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -100,6 +121,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRoute
     }
     '/(auth)/login': {
@@ -121,13 +149,6 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof authRegisterImport
-      parentRoute: typeof rootRoute
-    }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminIndexImport
       parentRoute: typeof rootRoute
     }
     '/aml/': {
@@ -172,103 +193,158 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesIndexImport
       parentRoute: typeof rootRoute
     }
+    '/admin/currencies/': {
+      id: '/admin/currencies/'
+      path: '/currencies'
+      fullPath: '/admin/currencies'
+      preLoaderRoute: typeof AdminCurrenciesIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/dashboard/': {
+      id: '/admin/dashboard/'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/users/': {
+      id: '/admin/users/'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
   }
 }
 
 // Create and export the route tree
 
+interface AdminRouteRouteChildren {
+  AdminCurrenciesIndexRoute: typeof AdminCurrenciesIndexRoute
+  AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+  AdminUsersIndexRoute: typeof AdminUsersIndexRoute
+}
+
+const AdminRouteRouteChildren: AdminRouteRouteChildren = {
+  AdminCurrenciesIndexRoute: AdminCurrenciesIndexRoute,
+  AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+  AdminUsersIndexRoute: AdminUsersIndexRoute,
+}
+
+const AdminRouteRouteWithChildren = AdminRouteRoute._addFileChildren(
+  AdminRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof authLoginRoute
   '/logout': typeof authLogoutRoute
   '/register': typeof authRegisterRoute
-  '/admin': typeof AdminIndexRoute
   '/aml': typeof AmlIndexRoute
   '/blog': typeof BlogIndexRoute
   '/contacts': typeof ContactsIndexRoute
   '/exchange': typeof ExchangeIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/rules': typeof RulesIndexRoute
+  '/admin/currencies': typeof AdminCurrenciesIndexRoute
+  '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/admin/users': typeof AdminUsersIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof authLoginRoute
   '/logout': typeof authLogoutRoute
   '/register': typeof authRegisterRoute
-  '/admin': typeof AdminIndexRoute
   '/aml': typeof AmlIndexRoute
   '/blog': typeof BlogIndexRoute
   '/contacts': typeof ContactsIndexRoute
   '/exchange': typeof ExchangeIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/rules': typeof RulesIndexRoute
+  '/admin/currencies': typeof AdminCurrenciesIndexRoute
+  '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/admin/users': typeof AdminUsersIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteRouteWithChildren
   '/(auth)/login': typeof authLoginRoute
   '/(auth)/logout': typeof authLogoutRoute
   '/(auth)/register': typeof authRegisterRoute
-  '/admin/': typeof AdminIndexRoute
   '/aml/': typeof AmlIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/contacts/': typeof ContactsIndexRoute
   '/exchange/': typeof ExchangeIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/rules/': typeof RulesIndexRoute
+  '/admin/currencies/': typeof AdminCurrenciesIndexRoute
+  '/admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/admin/users/': typeof AdminUsersIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/login'
     | '/logout'
     | '/register'
-    | '/admin'
     | '/aml'
     | '/blog'
     | '/contacts'
     | '/exchange'
     | '/profile'
     | '/rules'
+    | '/admin/currencies'
+    | '/admin/dashboard'
+    | '/admin/users'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/login'
     | '/logout'
     | '/register'
-    | '/admin'
     | '/aml'
     | '/blog'
     | '/contacts'
     | '/exchange'
     | '/profile'
     | '/rules'
+    | '/admin/currencies'
+    | '/admin/dashboard'
+    | '/admin/users'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/(auth)/login'
     | '/(auth)/logout'
     | '/(auth)/register'
-    | '/admin/'
     | '/aml/'
     | '/blog/'
     | '/contacts/'
     | '/exchange/'
     | '/profile/'
     | '/rules/'
+    | '/admin/currencies/'
+    | '/admin/dashboard/'
+    | '/admin/users/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRouteRoute: typeof AdminRouteRouteWithChildren
   authLoginRoute: typeof authLoginRoute
   authLogoutRoute: typeof authLogoutRoute
   authRegisterRoute: typeof authRegisterRoute
-  AdminIndexRoute: typeof AdminIndexRoute
   AmlIndexRoute: typeof AmlIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ContactsIndexRoute: typeof ContactsIndexRoute
@@ -279,10 +355,10 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRouteRoute: AdminRouteRouteWithChildren,
   authLoginRoute: authLoginRoute,
   authLogoutRoute: authLogoutRoute,
   authRegisterRoute: authRegisterRoute,
-  AdminIndexRoute: AdminIndexRoute,
   AmlIndexRoute: AmlIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   ContactsIndexRoute: ContactsIndexRoute,
@@ -302,10 +378,10 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/admin",
         "/(auth)/login",
         "/(auth)/logout",
         "/(auth)/register",
-        "/admin/",
         "/aml/",
         "/blog/",
         "/contacts/",
@@ -317,6 +393,14 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.tsx"
     },
+    "/admin": {
+      "filePath": "admin/route.tsx",
+      "children": [
+        "/admin/currencies/",
+        "/admin/dashboard/",
+        "/admin/users/"
+      ]
+    },
     "/(auth)/login": {
       "filePath": "(auth)/login.tsx"
     },
@@ -325,9 +409,6 @@ export const routeTree = rootRoute
     },
     "/(auth)/register": {
       "filePath": "(auth)/register.tsx"
-    },
-    "/admin/": {
-      "filePath": "admin/index.tsx"
     },
     "/aml/": {
       "filePath": "aml/index.tsx"
@@ -346,6 +427,18 @@ export const routeTree = rootRoute
     },
     "/rules/": {
       "filePath": "rules/index.tsx"
+    },
+    "/admin/currencies/": {
+      "filePath": "admin/currencies/index.tsx",
+      "parent": "/admin"
+    },
+    "/admin/dashboard/": {
+      "filePath": "admin/dashboard/index.tsx",
+      "parent": "/admin"
+    },
+    "/admin/users/": {
+      "filePath": "admin/users/index.tsx",
+      "parent": "/admin"
     }
   }
 }
