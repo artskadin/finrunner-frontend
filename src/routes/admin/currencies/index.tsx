@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { queryClient } from '@/app/main'
-import { Currency, getCurrenciesApi } from '@/shared/api/currency'
+import { Currency, getCurrenciesApi } from '@/shared/api/v1/currency'
 import { CurrencyPage } from '@/pages/admin-currency-page'
 
 export const Route = createFileRoute('/admin/currencies/')({

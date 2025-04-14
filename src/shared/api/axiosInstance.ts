@@ -1,6 +1,6 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
 import { useAuthStore } from '@/entities/user/model/authStore'
-import { AuthorizeResponse } from './auth'
+import { AuthorizeResponse } from './v1/auth'
 
 const API_URL =
   import.meta.env.VITE_BACKEND_API_URL || 'http://localhost:3000/api'

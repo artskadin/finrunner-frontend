@@ -1,5 +1,5 @@
-import { axiosInstance } from './axiosInstance'
-import { components, paths } from './generated/schema'
+import { axiosInstance } from '../axiosInstance'
+import { components, paths } from '../generated/schema'
 
 export type Currency = components['schemas']['currencySchema']
 
@@ -27,10 +27,10 @@ export type UpdateCurrencyErrorResponse =
     | '404'
     | '500']['content']['application/json']
 
-export type DeleteCurrencySuccessResponse =
-  paths['/api/v1/currencies/{id}']['delete']['responses']['200']['content']['application/json']
 export type DeleteCurrencyParams =
   paths['/api/v1/currencies/{id}']['delete']['parameters']['path']
+export type DeleteCurrencySuccessResponse =
+  paths['/api/v1/currencies/{id}']['delete']['responses']['200']['content']['application/json']
 
 export const getCurrenciesApi = async (): Promise<Array<Currency>> => {
   const response = await axiosInstance.get<Array<Currency>>('/v1/currencies')

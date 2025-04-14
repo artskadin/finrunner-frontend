@@ -14,7 +14,7 @@ import {
   UpdateCurrencyErrorResponse,
   UpdateCurrencyParams,
   UpdateCurrencySuccessResponse
-} from '@/shared/api/currency'
+} from '@/shared/api/v1/currency'
 import { queryClient } from '@/app/main'
 
 import styles from './styles.module.css'
@@ -25,7 +25,7 @@ interface CreateCurrencyFormProps {
   onCLose: () => void
 }
 
-export function CreateCurrencyForm({
+export function CurrencyForm({
   mode,
   initialData,
   onCLose
