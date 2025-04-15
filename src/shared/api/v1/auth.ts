@@ -1,5 +1,5 @@
-import { axiosInstance } from './axiosInstance'
-import type { paths } from './generated/schema'
+import { axiosInstance } from '../axiosInstance'
+import type { paths } from '../generated/schema'
 
 export type RequestOtpPayload =
   paths['/api/v1/auth/otp']['post']['requestBody']['content']['application/json']

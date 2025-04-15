@@ -3,10 +3,10 @@ import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { Button, Label, Link, Text, TextInput } from '@gravity-ui/uikit'
 import { useAuthStore } from '@/entities/user/model/authStore'
-import { authorizeApi, requestOtpApi } from '@/shared/api/auth'
+import { authorizeApi, requestOtpApi } from '@/shared/api/v1/auth'
+import { getMeApi } from '@/shared/api/user'
 
 import styles from './styles.module.css'
-import { getMeApi } from '@/shared/api/user'
 
 const OTP_RESEND_TIMEOUT = 60
 const OTP_LENGTH = 6

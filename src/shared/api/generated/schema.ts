@@ -516,6 +516,78 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/blockchain-networks/available": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get list of blockchain networks that the backend can work with */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["availableBlockchainNetworksSchema"] | null;
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/blockchain-networks/": {
         parameters: {
             query?: never;
@@ -539,11 +611,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            id: string;
-                            name: string;
-                            tokenStandart: string;
-                        }[];
+                        "application/json": components["schemas"]["blockchainNetworkSchema"][] | null;
                     };
                 };
                 /** @description Default Response */
@@ -595,19 +663,54 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": {
-                        name: string;
-                        tokenStandart: string;
-                    };
+                    "application/json": components["schemas"]["updateBlockchainNetworkBodySchema"];
                 };
             };
             responses: {
                 /** @description Default Response */
-                200: {
+                201: {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": components["schemas"]["blockchainNetworkSchema"];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
                 };
             };
         };
@@ -642,11 +745,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            id: string;
-                            name: string;
-                            tokenStandart: string;
-                        };
+                        "application/json": components["schemas"]["blockchainNetworkSchema"] | null;
                     };
                 };
                 /** @description Default Response */
@@ -699,10 +798,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": {
-                        name: string;
-                        tokenStandart: string;
-                    };
+                    "application/json": components["schemas"]["updateBlockchainNetworkBodySchema"];
                 };
             };
             responses: {
@@ -711,7 +807,45 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": components["schemas"]["blockchainNetworkSchema"];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
                 };
             };
         };
@@ -733,7 +867,45 @@ export interface paths {
                     headers: {
                         [name: string]: unknown;
                     };
-                    content?: never;
+                    content: {
+                        "application/json": components["schemas"]["blockchainNetworkSchema"];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
                 };
             };
         };
@@ -765,7 +937,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["currencySchema"][];
+                        "application/json": components["schemas"]["currencySchema"][] | null;
                     };
                 };
                 /** @description Default Response */
@@ -899,7 +1071,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["currencySchema"];
+                        "application/json": components["schemas"]["currencySchema"] | null;
                     };
                 };
                 /** @description Default Response */
@@ -1871,6 +2043,31 @@ export interface components {
             id: string;
         };
         deleteCurrencySchema: {
+            id: string;
+        };
+        blockchainNetworkSchema: {
+            id: string;
+            name: string;
+            tokenStandart: string;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        availableBlockchainNetworksSchema: ("Bitcoin" | "Ethereum" | "Solana")[];
+        createBlockchainNetworkSchema: {
+            name: string;
+            tokenStandart: string;
+        };
+        getblockchainNetworkByIdSchema: {
+            id: string;
+        };
+        updateBlockchainNetworkParamsSchema: {
+            id: string;
+        };
+        updateBlockchainNetworkBodySchema: {
+            name: string;
+            tokenStandart: string;
+        };
+        deleteBlockchainNetworkParamsSchema: {
             id: string;
         };
     };

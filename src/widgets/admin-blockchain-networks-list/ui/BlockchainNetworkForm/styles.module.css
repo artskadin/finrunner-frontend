@@ -1,0 +1,20 @@
+.create-blockchain-network-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 20px 20px;
+  min-width: fit-content;
+  width: 400px;
+}
+
+.create-blockchain-network-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.create-blockchain-network_form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
+}

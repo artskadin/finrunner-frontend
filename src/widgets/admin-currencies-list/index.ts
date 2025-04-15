@@ -1,0 +1,1 @@
+export { AdminCurrencyWidget } from './ui'

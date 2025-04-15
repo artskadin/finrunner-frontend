@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { User } from '@/shared/api/user'
-import { AuthorizeResponse } from '@/shared/api/auth'
+import { AuthorizeResponse } from '@/shared/api/v1/auth'
 
 interface AuthState {
   accessToken: string | null
@@ -42,7 +42,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
         logout: async (options = { redirect: true }) => {
           set({ accessToken: null, user: null, isLoading: false })
 
-          import('@/shared/api/auth').then(({ logoutApi }) => logoutApi())
+          import('@/shared/api/v1/auth').then(({ logoutApi }) => logoutApi())
         },
         initializeAuth: async () => {
           if (!get().isLoading) {

@@ -14,7 +14,7 @@ import {
   UpdateCurrencyErrorResponse,
   UpdateCurrencyParams,
   UpdateCurrencySuccessResponse
-} from '@/shared/api/currency'
+} from '@/shared/api/v1/currency'
 import { queryClient } from '@/app/main'
 
 import styles from './styles.module.css'
@@ -25,7 +25,7 @@ interface CreateCurrencyFormProps {
   onCLose: () => void
 }
 
-export function CreateCurrencyForm({
+export function CurrencyForm({
   mode,
   initialData,
   onCLose
@@ -102,7 +102,7 @@ export function CreateCurrencyForm({
 
     if (mode === 'edit' && initialData) {
       updateCurrency({
-        params: { id: initialData?.id },
+        params: { id: initialData.id },
         body: {
           fullname: fullname.trim(),
           shortname: shortname.trim().toUpperCase()
@@ -120,7 +120,14 @@ export function CreateCurrencyForm({
       <form onSubmit={handleSubmit}>
         <div className={styles['create-currency-content']}>
           <div className={styles['create-currency_form-block']}>
-            <Text variant='body-2'>Полное имя</Text>
+            <Text variant='body-2'>
+              Полное имя{' '}
+              {initialData && (
+                <Text variant='body-2' color='secondary'>
+                  (текущее: {initialData.fullname})
+                </Text>
+              )}
+            </Text>
             <TextInput
               size='l'
               placeholder='К примеру Ethereum'
@@ -136,7 +143,14 @@ export function CreateCurrencyForm({
           </div>
 
           <div className={styles['create-currency_form-block']}>
-            <Text variant='body-2'>Сокрашенное имя</Text>
+            <Text variant='body-2'>
+              Сокрашенное имя{' '}
+              {initialData && (
+                <Text variant='body-2' color='secondary'>
+                  (текущее: {initialData.shortname})
+                </Text>
+              )}
+            </Text>
             <TextInput
               size='l'
               placeholder='К примеру ETH'

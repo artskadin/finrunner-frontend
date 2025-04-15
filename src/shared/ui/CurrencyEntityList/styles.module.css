@@ -1,0 +1,39 @@
+.entities {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 420px;
+
+  background: var(--sidebar-background-color);
+  padding: 10px 8px;
+  border-radius: 8px;
+
+  height: 350px;
+}
+
+.entities_header {
+  padding: 0 10px 0 10px;
+}
+
+.entities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.entities-list__emplty {
+  margin: auto;
+}
+
+.entity {
+  padding: 6px 10px;
+}
+
+.entity:hover {
+  background-color: #0099ff1f;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
