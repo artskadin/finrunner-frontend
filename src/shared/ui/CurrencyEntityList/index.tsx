@@ -1,3 +1,5 @@
+import React from 'react'
+
 import styles from './styles.module.css'
 
 interface CurrencyEntityListProps<T, P = object> {
@@ -11,7 +13,7 @@ interface CurrencyEntityListProps<T, P = object> {
   emptyPlaceholder?: React.ReactNode
 }
 
-export function CurrencyEntityList<T, P>({
+function NonMemoCurrencyEntityList<T, P>({
   renderHeader,
   items,
   renderItem,
@@ -32,7 +34,9 @@ export function CurrencyEntityList<T, P>({
 
         <div className={styles['entities-list']}>
           {items.length === 0 ? (
-            <div>{emptyPlaceholder}</div>
+            <div className={styles['entities-list__emplty']}>
+              {emptyPlaceholder}
+            </div>
           ) : (
             items.map((item, index) => (
               <div key={getItemId(item)} className={styles.entity}>
@@ -45,3 +49,9 @@ export function CurrencyEntityList<T, P>({
     </div>
   )
 }
+
+export const CurrencyEntityList = React.memo(
+  NonMemoCurrencyEntityList
+) as typeof NonMemoCurrencyEntityList
+
+;(CurrencyEntityList as React.FC).displayName = 'CurrencyEntityList'

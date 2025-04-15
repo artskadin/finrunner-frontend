@@ -1,0 +1,36 @@
+.currency {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.currency_id-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.3em;
+}
+
+.currency_id-block svg:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.currency-data {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+
+.currency-text-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  width: 140px;
+  word-wrap: break-word;
+}
+
+.currency_actions {
+  margin-left: auto;
+}

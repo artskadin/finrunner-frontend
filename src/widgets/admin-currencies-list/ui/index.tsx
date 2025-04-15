@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import { Button, Icon, Modal, Text, Tooltip } from '@gravity-ui/uikit'
-import { Copy, Pencil, TrashBin } from '@gravity-ui/icons'
+import { useCallback, useState } from 'react'
+import { Button, Modal, Text } from '@gravity-ui/uikit'
 import { Route as CurrencyRoute } from '@/routes/admin/currencies'
 import { Route as AdminRoute } from '@/routes/admin/route'
-import { iaAvailableForAdmin } from '@/shared/utils/checkUserRules'
 import { CurrencyForm } from './CurrencyForm'
 import { Currency } from '@/shared/api/v1/currency'
+import { CurrencyEntityList } from '@/shared/ui/CurrencyEntityList'
+import { DeleteCurrencyForm } from './DeleteCurrencyForm'
+import { CurrencyItem } from './CurrencyItem'
 
 import styles from './styles.module.css'
-import { DeleteCurrencyForm } from './DeleteCurrencyForm'
 
 export function AdminCurrencyWidget() {
   const currencyRouteData = CurrencyRoute.useLoaderData()
@@ -29,6 +29,10 @@ export function AdminCurrencyWidget() {
   )
   const closeDeleteCurrencyModalHandler = () => setDeletingCurrency(null)
 
+  const copyCurrencyIdHandler = useCallback((currencyId: string) => {
+    navigator.clipboard.writeText(currencyId)
+  }, [])
+
   if (!currencyRouteData || !adminRouteData) {
     return null
   }
@@ -40,9 +44,49 @@ export function AdminCurrencyWidget() {
     return null
   }
 
-  const copyCurrencyIdHandelr = (currencyId: string) => {
-    navigator.clipboard.writeText(currencyId)
-  }
+  const handleAddCurrencyClick = useCallback(
+    () => setIsCreateCurrencyModalOpen(true),
+    []
+  )
+  const handleEditCurrencyClick = useCallback(
+    (currency: Currency) => setUpdatingCurrency(currency),
+    []
+  )
+  const handleDeleteCurrencyClick = useCallback(
+    (currency: Currency) => setDeletingCurrency(currency),
+    []
+  )
+
+  const renderHeader = useCallback(
+    ({ totalCount }: { totalCount: number }) => (
+      <div className={styles.currencies_header}>
+        <Text variant='subheader-3'>
+          Список валют{' '}
+          <Text variant='subheader-3' color='secondary'>
+            ({totalCount})
+          </Text>
+        </Text>
+
+        <Button size='m' view='flat-action' onClick={handleAddCurrencyClick}>
+          Добавить
+        </Button>
+      </div>
+    ),
+    [handleAddCurrencyClick]
+  )
+
+  const renderItem = useCallback(
+    (currency: Currency) => (
+      <CurrencyItem
+        currency={currency}
+        user={user}
+        onCopy={copyCurrencyIdHandler}
+        onEdit={handleEditCurrencyClick}
+        onDelete={handleDeleteCurrencyClick}
+      />
+    ),
+    [copyCurrencyIdHandler, handleEditCurrencyClick, handleDeleteCurrencyClick]
+  )
 
   return (
     <>
@@ -78,74 +122,17 @@ export function AdminCurrencyWidget() {
         )}
       </Modal>
 
-      <div className={styles.currencies}>
-        <div className={styles.currencies_header}>
-          <Text variant='subheader-3'>Список валют</Text>
-          <Button
-            size='m'
-            view='flat-action'
-            onClick={() => setIsCreateCurrencyModalOpen(true)}
-          >
-            Добавить
-          </Button>
-        </div>
-
-        <div className={styles['currencies-list']}>
-          {currencies.length === 0 ? (
-            <Text
-              variant='body-2'
-              color='secondary'
-              className={styles['currencies-list__emplty']}
-            >
-              Список валют пуст
-            </Text>
-          ) : (
-            currencies.map((currency) => (
-              <div key={currency.id} className={styles.currency}>
-                <div className={styles['currency_id-block']}>
-                  <Text variant='caption-2' color='secondary'>
-                    {currency.id}
-                  </Text>
-                  <Copy onClick={() => copyCurrencyIdHandelr(currency.id)} />
-                </div>
-
-                <div className={styles['currency-data']}>
-                  <div className={styles['currency-text-block']}>
-                    <Text color='secondary'>Full name</Text>
-                    <Text variant='body-2'>{currency.fullname}</Text>
-                  </div>
-                  <div className={styles['currency-text-block']}>
-                    <Text color='secondary'>Short name</Text>
-                    <Text variant='body-2'>{currency.shortname}</Text>
-                  </div>
-                  <div className={styles.currency_actions}>
-                    <Tooltip content={'Редактировать валюту'} openDelay={200}>
-                      <Button
-                        size='m'
-                        view='flat'
-                        disabled={!iaAvailableForAdmin(user.role)}
-                        onClick={() => setUpdatingCurrency(currency)}
-                      >
-                        <Icon data={Pencil} size={16} />
-                      </Button>
-                    </Tooltip>
-                    <Tooltip content={'Удалить валюту'} openDelay={200}>
-                      <Button
-                        size='m'
-                        view='flat-danger'
-                        disabled={!iaAvailableForAdmin(user.role)}
-                        onClick={() => setDeletingCurrency(currency)}
-                      >
-                        <Icon data={TrashBin} size={16} />
-                      </Button>
-                    </Tooltip>
-                  </div>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+      <CurrencyEntityList<Currency, { totalCount: number }>
+        items={currencies}
+        getItemId={(item) => item.id}
+        renderHeader={() => renderHeader({ totalCount: currencies.length })}
+        renderItem={renderItem}
+        emptyPlaceholder={
+          <Text variant='body-2' color='secondary'>
+            Список валют пуст
+          </Text>
+        }
+      />
     </>
   )
 }

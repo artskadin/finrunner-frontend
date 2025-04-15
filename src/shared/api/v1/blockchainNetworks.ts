@@ -2,6 +2,8 @@ import { axiosInstance } from '../axiosInstance'
 import { components, paths } from '../generated/schema'
 
 export type BlockchainNetwork = components['schemas']['blockchainNetworkSchema']
+export type AvailableBlockchainNetworks =
+  components['schemas']['availableBlockchainNetworksSchema']
 
 export type CreateBlockchainNetworkPayload =
   paths['/api/v1/blockchain-networks/']['post']['requestBody']['content']['application/json']
@@ -13,10 +15,20 @@ export type CreateBlockchainNetworkErrorResposnse =
     | '401'
     | '404'
     | '500']['content']['application/json']
+
 export type UpdateBlockchainNetworkParams =
   paths['/api/v1/blockchain-networks/{id}']['put']['parameters']['path']
 export type UpdateBlockchainNetworkBody =
   paths['/api/v1/blockchain-networks/{id}']['put']['requestBody']['content']['application/json']
+export type UpdateBlockchainNetworkSuccessResposnse =
+  paths['/api/v1/blockchain-networks/{id}']['put']['responses']['200']['content']['application/json']
+export type UpdateBlockchainNetworkErrorResponse =
+  paths['/api/v1/blockchain-networks/{id}']['put']['responses'][
+    | '400'
+    | '401'
+    | '404'
+    | '500']['content']['application/json']
+
 export type DeleteBlockchainNetworkParams =
   paths['/api/v1/blockchain-networks/{id}']['delete']['parameters']['path']
 export type DeleteBlockchainNetworkSuccessResponse =
@@ -32,16 +44,27 @@ export const getBlockchainNetworksApi = async (): Promise<
   return response.data
 }
 
-export const createBlockchainNetworkApi =
-  async (): Promise<BlockchainNetwork> => {
-    const response = await axiosInstance.post<BlockchainNetwork>(
-      '/v1/blockchain-network'
+export const getAvailableBlockchainNetworksApi =
+  async (): Promise<AvailableBlockchainNetworks> => {
+    const response = await axiosInstance.get<AvailableBlockchainNetworks>(
+      '/v1/blockchain-networks/available'
     )
 
     return response.data
   }
 
-export const updateBlockchainNetwork = async ({
+export const createBlockchainNetworkApi = async (
+  payload: CreateBlockchainNetworkPayload
+): Promise<BlockchainNetwork> => {
+  const response = await axiosInstance.post<BlockchainNetwork>(
+    '/v1/blockchain-networks',
+    payload
+  )
+
+  return response.data
+}
+
+export const updateBlockchainNetworkApi = async ({
   params,
   body
 }: {
@@ -49,7 +72,7 @@ export const updateBlockchainNetwork = async ({
   body: UpdateBlockchainNetworkBody
 }): Promise<BlockchainNetwork> => {
   const response = await axiosInstance.put(
-    `/v1/blockchain-network/${params.id}`,
+    `/v1/blockchain-networks/${params.id}`,
     body
   )
 
@@ -61,7 +84,7 @@ export const deleteBlockchainNetworkApi = async (
 ): Promise<DeleteBlockchainNetworkSuccessResponse> => {
   const response =
     await axiosInstance.delete<DeleteBlockchainNetworkSuccessResponse>(
-      `/v1/blockchain-network/${payload.id}`
+      `/v1/blockchain-networks/${payload.id}`
     )
 
   return response.data

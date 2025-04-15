@@ -1,0 +1,19 @@
+.delete-blockchain-network-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 20px 20px;
+  min-width: fit-content;
+  width: 400px;
+}
+
+.delete-blockchain-network-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+}
+
+.delete-blockchain-network-actions {
+  display: flex;
+  gap: 0.7em;
+}

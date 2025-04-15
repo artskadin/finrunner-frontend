@@ -102,7 +102,7 @@ export function CurrencyForm({
 
     if (mode === 'edit' && initialData) {
       updateCurrency({
-        params: { id: initialData?.id },
+        params: { id: initialData.id },
         body: {
           fullname: fullname.trim(),
           shortname: shortname.trim().toUpperCase()
@@ -120,7 +120,14 @@ export function CurrencyForm({
       <form onSubmit={handleSubmit}>
         <div className={styles['create-currency-content']}>
           <div className={styles['create-currency_form-block']}>
-            <Text variant='body-2'>Полное имя</Text>
+            <Text variant='body-2'>
+              Полное имя{' '}
+              {initialData && (
+                <Text variant='body-2' color='secondary'>
+                  (текущее: {initialData.fullname})
+                </Text>
+              )}
+            </Text>
             <TextInput
               size='l'
               placeholder='К примеру Ethereum'
@@ -136,7 +143,14 @@ export function CurrencyForm({
           </div>
 
           <div className={styles['create-currency_form-block']}>
-            <Text variant='body-2'>Сокрашенное имя</Text>
+            <Text variant='body-2'>
+              Сокрашенное имя{' '}
+              {initialData && (
+                <Text variant='body-2' color='secondary'>
+                  (текущее: {initialData.shortname})
+                </Text>
+              )}
+            </Text>
             <TextInput
               size='l'
               placeholder='К примеру ETH'
