@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
-  width: 420px;
+  flex-basis: 420px;
 
   background: var(--sidebar-background-color);
   padding: 10px 8px;
   border-radius: 8px;
 
-  height: 350px;
+  height: 420px;
 }
 
 .entities_header {
@@ -19,7 +19,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.7em;
-  max-height: 400px;
   overflow-y: auto;
   scrollbar-width: thin;
 }
@@ -33,7 +32,7 @@
 }
 
 .entity:hover {
-  background-color: #0099ff1f;
+  background-color: #ffffff0d;
   border-radius: 6px;
   transition: background-color 0.2s ease;
 }

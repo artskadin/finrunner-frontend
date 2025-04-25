@@ -2,6 +2,7 @@ import { Route as CurrencyRoute } from '@/routes/admin/currencies'
 import { Route as AdminRoute } from '@/routes/admin/route'
 import { AdminCurrencyWidget } from '@/widgets/admin-currencies-list'
 import { AdminBlockchainNetworkWidget } from '@/widgets/admin-blockchain-networks-list'
+import { AdminAssetsWidget } from '@/widgets/admin-assets-list'
 
 import styles from './styles.module.css'
 
@@ -22,6 +23,8 @@ export function CurrencyPage() {
 
   return (
     <div className={styles['admin-currency-page_container']}>
+      <AdminAssetsWidget />
+
       <AdminCurrencyWidget />
 
       <AdminBlockchainNetworkWidget />

@@ -22,7 +22,7 @@ import {
   UpdateBlockchainNetworkErrorResponse,
   UpdateBlockchainNetworkParams,
   UpdateBlockchainNetworkSuccessResposnse
-} from '@/shared/api/v1/blockchainNetworks'
+} from '@/shared/api/v1/blockchainNetworksApi'
 
 import styles from './styles.module.css'
 
@@ -81,6 +81,10 @@ export function BlockchainNetworkForm({
       mutationFn: updateBlockchainNetworkApi,
       onSuccess: () => {
         handleSuccess()
+
+        queryClient.invalidateQueries({
+          queryKey: ['admin', 'cryptoAssets', 'getAll']
+        })
       },
       onError: (err) => {
         handleError(err)

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@blockicon/react':
+        specifier: ^0.0.9
+        version: 0.0.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@gravity-ui/date-utils':
         specifier: ^2.5.6
         version: 2.5.6
@@ -15,8 +18,8 @@ importers:
         specifier: ^2.13.0
         version: 2.13.0(react@19.1.0)
       '@gravity-ui/uikit':
-        specifier: ^7.8.0
-        version: 7.8.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: ^7.10.0
+        version: 7.10.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/react-query':
         specifier: ^5.71.5
         version: 5.71.5(react@19.1.0)
@@ -60,9 +63,6 @@ importers:
       '@vitejs/plugin-react-swc':
         specifier: ^3.8.0
         version: 3.8.1(vite@6.2.4(@types/node@22.13.17)(jiti@2.4.2)(less@4.3.0)(sass@1.86.3)(stylus@0.62.0)(tsx@4.19.3))
-      add:
-        specifier: ^2.0.6
-        version: 2.0.6
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -200,6 +200,15 @@ packages:
 
   '@bem-react/classname@1.6.0':
     resolution: {integrity: sha512-SFBwUHMcb7TFFK5ld88+JhecoEun3/kHZ6KvLDjj3w5hv/tfRV8mtGHA8N42uMctXLF4bPEcr96xwXXcRFuweg==}
+
+  '@blockicon/core@0.0.3':
+    resolution: {integrity: sha512-S3dWskBOHeheNIMuX+qwjIiNCGhuuB/kNAA8+aTWlndmgRHRGNPQj9JoTK7QC1Q3AI+le++suzYRa+Np+LrECA==}
+
+  '@blockicon/react@0.0.9':
+    resolution: {integrity: sha512-VK9TS4MqXXCjPyYaWkPfj//PSpiUa5QnIGZ7ElE6N8Z5as+0VvvlTDBG1oKpcNldGJYoQRuBk6vvwkw7TWPKvQ==}
+    peerDependencies:
+      react: ^19.1.0
+      react-dom: ^19.1.0
 
   '@esbuild/aix-ppc64@0.25.2':
     resolution: {integrity: sha512-wCIboOL2yXZym2cgm6mlA742s9QeJ8DjGVaL39dLN4rRwrOgOyYSnOaFPhKZGLb2ngj4EyfAFjsNJwPXZvseag==}
@@ -429,8 +438,8 @@ packages:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
 
-  '@floating-ui/react@0.27.6':
-    resolution: {integrity: sha512-9GLOPbW8jTeboR2ar9uMMUDUZjpTLscUvOjNvRw2EgppgoLHLUh/P/OW9evULosnvDjhYf2Gwk/gMOP9KvXD2A==}
+  '@floating-ui/react@0.27.8':
+    resolution: {integrity: sha512-EQJ4Th328y2wyHR3KzOUOoTW2UKjFk53fmyahfwExnFQ8vnsMYqKc+fFPOkeYtj5tcp1DUMiNJ7BFhed7e9ONw==}
     peerDependencies:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
@@ -441,8 +450,8 @@ packages:
   '@gravity-ui/date-utils@2.5.6':
     resolution: {integrity: sha512-EjaN5b8jvnBlfU/db5QUHj6ooPz/uSRqvFYiPH/ydkCTnhusZhUpTk+xn8hnA7PPLbj3hMnJReF9fWxsfM6Y5w==}
 
-  '@gravity-ui/i18n@1.7.0':
-    resolution: {integrity: sha512-jZotOX73lMVARsNZ5L8rquDhyCIcHnX7GwT32m6vrnqy6iKBfBdOuAnAalUbnoVJoasfvYiSyX3kwusetyZgfQ==}
+  '@gravity-ui/i18n@1.8.0':
+    resolution: {integrity: sha512-bVt/UGjL96Naw0h03QW+3z2tf6t4zvLh1j+eFzpdLlAIMeNu0dRjxn4X6EGtwhwKrfMyIfrlOqmLSroXtCNQAw==}
 
   '@gravity-ui/icons@2.13.0':
     resolution: {integrity: sha512-oHWJTb8rTuZo1czZRBSggEWMmthiXeM5LBpB0GzyS1tCkNE1A7DpEvvrKUwHYVHTxpw/xWIqQCxNj7LIo2R3NQ==}
@@ -452,8 +461,8 @@ packages:
       react:
         optional: true
 
-  '@gravity-ui/uikit@7.8.0':
-    resolution: {integrity: sha512-+NnBryUUghiEUEnNVynH7ImydXZSQCYjlIxO4kbh3oxrndARXVZdYcz4JLgE8Hbyr75xCvsVfyjF6/LmMhB7+g==}
+  '@gravity-ui/uikit@7.10.0':
+    resolution: {integrity: sha512-AEgytG3g3g1UDRP8avGjhUrjhYN2DiNGPSK3Hao4HzJr2tdH1CmzCJH8ETudro3dijhLqwU9T0jPYs961pNv9g==}
     peerDependencies:
       react: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.14.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -976,9 +985,6 @@ packages:
     resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
-
-  add@2.0.6:
-    resolution: {integrity: sha512-j5QzrmsokwWWp6kUcJQySpbG+xfOBqqKnup3OIk1pz+kB/80SLorZ9V8zHFLO92Lcd+hbvq8bT+zOGoPkmBV0Q==}
 
   agent-base@7.1.3:
     resolution: {integrity: sha512-jRR5wdylq8CkOe6hei19GGZnxM6rBGwFl3Bg0YItGDimvjGtAvdZk4Pu6Cl4u4Igsws4a1fd1Vq3ezrhn4KmFw==}
@@ -2307,6 +2313,14 @@ snapshots:
 
   '@bem-react/classname@1.6.0': {}
 
+  '@blockicon/core@0.0.3': {}
+
+  '@blockicon/react@0.0.9(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@blockicon/core': 0.0.3
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   '@esbuild/aix-ppc64@0.25.2':
     optional: true
 
@@ -2527,7 +2541,7 @@ snapshots:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
 
-  '@floating-ui/react@0.27.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@floating-ui/react@0.27.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@floating-ui/react-dom': 2.1.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@floating-ui/utils': 0.2.9
@@ -2542,17 +2556,17 @@ snapshots:
       dayjs: 1.11.10
       lodash: 4.17.21
 
-  '@gravity-ui/i18n@1.7.0': {}
+  '@gravity-ui/i18n@1.8.0': {}
 
   '@gravity-ui/icons@2.13.0(react@19.1.0)':
     optionalDependencies:
       react: 19.1.0
 
-  '@gravity-ui/uikit@7.8.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@gravity-ui/uikit@7.10.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@bem-react/classname': 1.6.0
-      '@floating-ui/react': 0.27.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@gravity-ui/i18n': 1.7.0
+      '@floating-ui/react': 0.27.8(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      '@gravity-ui/i18n': 1.8.0
       '@gravity-ui/icons': 2.13.0(react@19.1.0)
       '@tanstack/react-virtual': 3.13.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       blueimp-md5: 2.19.0
@@ -3061,8 +3075,6 @@ snapshots:
       acorn: 8.14.1
 
   acorn@8.14.1: {}
-
-  add@2.0.6: {}
 
   agent-base@7.1.3: {}
 

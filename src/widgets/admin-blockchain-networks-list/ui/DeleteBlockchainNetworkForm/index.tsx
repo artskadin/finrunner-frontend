@@ -1,16 +1,16 @@
 import { AxiosError } from 'axios'
 import { useRouter } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
+import { Button, Text } from '@gravity-ui/uikit'
+import { queryClient } from '@/app/main'
 import {
   BlockchainNetwork,
   deleteBlockchainNetworkApi,
   DeleteBlockchainNetworkParams,
   DeleteBlockchainNetworkSuccessResponse
-} from '@/shared/api/v1/blockchainNetworks'
+} from '@/shared/api/v1/blockchainNetworksApi'
 
 import styles from './styles.module.css'
-import { queryClient } from '@/app/main'
-import { Button, Text } from '@gravity-ui/uikit'
 
 interface DeleteBlockchainMetworkFormProps {
   onClose: () => void

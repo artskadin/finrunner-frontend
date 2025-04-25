@@ -663,7 +663,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["updateBlockchainNetworkBodySchema"];
+                    "application/json": components["schemas"]["createBlockchainNetworkSchema"];
                 };
             };
             responses: {
@@ -786,69 +786,7 @@ export interface paths {
                 };
             };
         };
-        /** @description Update blockchain networks */
-        put: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": components["schemas"]["updateBlockchainNetworkBodySchema"];
-                };
-            };
-            responses: {
-                /** @description Default Response */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["blockchainNetworkSchema"];
-                    };
-                };
-                /** @description Default Response */
-                400: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["apiErrorResponseSchema"];
-                    };
-                };
-                /** @description Default Response */
-                401: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["apiErrorResponseSchema"];
-                    };
-                };
-                /** @description Default Response */
-                404: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["apiErrorResponseSchema"];
-                    };
-                };
-                /** @description Default Response */
-                500: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
-                    };
-                };
-            };
-        };
+        put?: never;
         post?: never;
         /** @description Delete blockchain networks */
         delete: {
@@ -911,7 +849,69 @@ export interface paths {
         };
         options?: never;
         head?: never;
-        patch?: never;
+        /** @description Patch blockchain networks */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["updateBlockchainNetworkBodySchema"];
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["blockchainNetworkSchema"];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
+                };
+            };
+        };
         trace?: never;
     };
     "/api/v1/currencies/": {
@@ -989,7 +989,7 @@ export interface paths {
             };
             requestBody: {
                 content: {
-                    "application/json": components["schemas"]["updateCurrencyBodySchema"];
+                    "application/json": components["schemas"]["createCurrencySchema"];
                 };
             };
             responses: {
@@ -1112,8 +1112,10 @@ export interface paths {
                 };
             };
         };
-        /** @description Update currency */
-        put: {
+        put?: never;
+        post?: never;
+        /** @description Delete currency */
+        delete: {
             parameters: {
                 query?: never;
                 header?: never;
@@ -1122,7 +1124,32 @@ export interface paths {
                 };
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["currencySchema"];
+                    };
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** @description Patch currency */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
                 content: {
                     "application/json": components["schemas"]["updateCurrencyBodySchema"];
                 };
@@ -1175,8 +1202,209 @@ export interface paths {
                 };
             };
         };
+        trace?: never;
+    };
+    "/api/v1/crypto-assets/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get all available crypto assets */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["cryptoAssetSchema"][] | null;
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
+                };
+            };
+        };
+        put?: never;
+        /** @description Create crypto asset */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["createCryptoAssetSchema"];
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["cryptoAssetSchema"];
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/crypto-assets/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get crypto asset by id */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["cryptoAssetSchema"] | null;
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
+                };
+            };
+        };
+        put?: never;
         post?: never;
-        /** @description Delete currency */
+        /** @description Delete crypto asset */
         delete: {
             parameters: {
                 query?: never;
@@ -1194,14 +1422,112 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["currencySchema"];
+                        "application/json": components["schemas"]["cryptoAssetSchema"] | null;
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
                     };
                 };
             };
         };
         options?: never;
         head?: never;
-        patch?: never;
+        /** @description Patch crypto asset */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": components["schemas"]["updateCryptoAssetBodySchema"];
+                };
+            };
+            responses: {
+                /** @description Default Response */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["cryptoAssetSchema"] | null;
+                    };
+                };
+                /** @description Default Response */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["apiErrorResponseSchema"];
+                    };
+                };
+                /** @description Default Response */
+                500: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["internalServerErrorResponseSchema"];
+                    };
+                };
+            };
+        };
         trace?: never;
     };
     "/api/v1/exchange-pairs/": {
@@ -2022,6 +2348,7 @@ export interface components {
             message: string;
         };
         currencySchema: {
+            /** Format: uuid */
             id: string;
             fullname: string;
             shortname: string;
@@ -2033,16 +2360,19 @@ export interface components {
             shortname: string;
         };
         getCurrencyByIdSchema: {
+            /** Format: uuid */
             id: string;
         };
         updateCurrencyBodySchema: {
-            fullname: string;
-            shortname: string;
+            fullname?: string;
+            shortname?: string;
         };
         updateCurrencyParamsSchema: {
+            /** Format: uuid */
             id: string;
         };
         deleteCurrencySchema: {
+            /** Format: uuid */
             id: string;
         };
         blockchainNetworkSchema: {
@@ -2052,7 +2382,7 @@ export interface components {
             /** Format: date-time */
             createdAt: string;
         };
-        availableBlockchainNetworksSchema: ("Bitcoin" | "Ethereum" | "Solana")[];
+        availableBlockchainNetworksSchema: ("Bitcoin" | "Ethereum" | "Solana" | "Tron")[];
         createBlockchainNetworkSchema: {
             name: string;
             tokenStandart: string;
@@ -2064,10 +2394,42 @@ export interface components {
             id: string;
         };
         updateBlockchainNetworkBodySchema: {
-            name: string;
-            tokenStandart: string;
+            name?: string;
+            tokenStandart?: string;
         };
         deleteBlockchainNetworkParamsSchema: {
+            id: string;
+        };
+        cryptoAssetSchema: {
+            id: string;
+            /** Format: uuid */
+            currencyId: string;
+            /** Format: uuid */
+            blockchainNetworkId: string;
+            /** Format: date-time */
+            createdAt: string;
+            currency?: components["schemas"]["currencySchema"];
+            blockchainNetwork?: components["schemas"]["blockchainNetworkSchema"];
+        };
+        createCryptoAssetSchema: {
+            /** Format: uuid */
+            currencyId: string;
+            /** Format: uuid */
+            blockchainNetworkId: string;
+        };
+        getCryptoAssetByIdSchema: {
+            id: string;
+        };
+        updateCryptoAssetParamsSchema: {
+            id: string;
+        };
+        updateCryptoAssetBodySchema: {
+            /** Format: uuid */
+            currencyId?: string;
+            /** Format: uuid */
+            blockchainNetworkId?: string;
+        };
+        deleteCryptoAssetParamsSchema: {
             id: string;
         };
     };

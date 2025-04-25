@@ -14,7 +14,7 @@ import {
   UpdateCurrencyErrorResponse,
   UpdateCurrencyParams,
   UpdateCurrencySuccessResponse
-} from '@/shared/api/v1/currency'
+} from '@/shared/api/v1/currencyApi'
 import { queryClient } from '@/app/main'
 
 import styles from './styles.module.css'
@@ -57,6 +57,10 @@ export function CurrencyForm({
     mutationFn: updateCurrencyApi,
     onSuccess: () => {
       handleSuccess()
+
+      queryClient.invalidateQueries({
+        queryKey: ['admin', 'cryptoAssets', 'getAll']
+      })
     },
     onError: (err) => {
       handleError(err)

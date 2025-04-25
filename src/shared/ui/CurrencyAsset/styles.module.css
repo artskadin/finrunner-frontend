@@ -1,0 +1,14 @@
+.crypto-asset-card_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+}
+
+.crypto-asset-card_currency {
+  display: flex;
+  flex-direction: column;
+}
+
+.crypto-asset-card_provider {
+}
