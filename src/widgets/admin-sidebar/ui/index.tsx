@@ -20,7 +20,7 @@ export function AdminSideBar() {
           view='primary'
           activeProps={{ className: styles.navigation__active }}
         >
-          <Text variant='body-2'>Дашбоард</Text>
+          <Text variant='body-2'>Дашборд</Text>
         </CustomLink>
         <CustomLink
           to={'/admin/currencies'}

@@ -1,13 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { queryClient } from '@/app/main'
-import { Currency, getCurrenciesApi } from '@/shared/api/v1/currency'
+import { Currency, getCurrenciesApi } from '@/shared/api/v1/currencyApi'
 import { CurrencyPage } from '@/pages/admin-currency-page'
 import {
   AvailableBlockchainNetworks,
   BlockchainNetwork,
   getAvailableBlockchainNetworksApi,
   getBlockchainNetworksApi
-} from '@/shared/api/v1/blockchainNetworks'
+} from '@/shared/api/v1/blockchainNetworksApi'
+import { CryptoAsset, getCryptoAssetsApi } from '@/shared/api/v1/cryptoAssetApi'
 
 export const Route = createFileRoute('/admin/currencies/')({
   component: CurrencyPage,
@@ -37,7 +38,20 @@ export const Route = createFileRoute('/admin/currencies/')({
         queryFn: getBlockchainNetworksApi
       })
 
-      return { currencies, availableBlockchainNetworks, blockchainNetworks }
+      const cryptoAssets = await queryClient.fetchQuery<
+        Array<CryptoAsset> | null,
+        Error
+      >({
+        queryKey: ['admin', 'cryptoAssets', 'getAll'],
+        queryFn: getCryptoAssetsApi
+      })
+
+      return {
+        currencies,
+        availableBlockchainNetworks,
+        blockchainNetworks,
+        cryptoAssets
+      }
     } catch (err) {
       console.error(err)
     }

@@ -17,13 +17,13 @@ export type CreateBlockchainNetworkErrorResposnse =
     | '500']['content']['application/json']
 
 export type UpdateBlockchainNetworkParams =
-  paths['/api/v1/blockchain-networks/{id}']['put']['parameters']['path']
+  paths['/api/v1/blockchain-networks/{id}']['patch']['parameters']['path']
 export type UpdateBlockchainNetworkBody =
-  paths['/api/v1/blockchain-networks/{id}']['put']['requestBody']['content']['application/json']
+  components['schemas']['updateBlockchainNetworkBodySchema']
 export type UpdateBlockchainNetworkSuccessResposnse =
-  paths['/api/v1/blockchain-networks/{id}']['put']['responses']['200']['content']['application/json']
+  paths['/api/v1/blockchain-networks/{id}']['patch']['responses']['200']['content']['application/json']
 export type UpdateBlockchainNetworkErrorResponse =
-  paths['/api/v1/blockchain-networks/{id}']['put']['responses'][
+  paths['/api/v1/blockchain-networks/{id}']['patch']['responses'][
     | '400'
     | '401'
     | '404'
@@ -71,7 +71,7 @@ export const updateBlockchainNetworkApi = async ({
   params: UpdateBlockchainNetworkParams
   body: UpdateBlockchainNetworkBody
 }): Promise<BlockchainNetwork> => {
-  const response = await axiosInstance.put(
+  const response = await axiosInstance.patch(
     `/v1/blockchain-networks/${params.id}`,
     body
   )

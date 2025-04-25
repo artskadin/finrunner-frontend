@@ -15,13 +15,13 @@ export type CreateCurrencyErrorResponse =
     | '500']['content']['application/json']
 
 export type UpdateCurrencyParams =
-  paths['/api/v1/currencies/{id}']['put']['parameters']['path']
+  paths['/api/v1/currencies/{id}']['patch']['parameters']['path']
 export type UpdateCurrencyBody =
-  paths['/api/v1/currencies/{id}']['put']['requestBody']['content']['application/json']
+  components['schemas']['updateCurrencyBodySchema']
 export type UpdateCurrencySuccessResponse =
-  paths['/api/v1/currencies/{id}']['put']['responses']['200']['content']['application/json']
+  paths['/api/v1/currencies/{id}']['patch']['responses']['200']['content']['application/json']
 export type UpdateCurrencyErrorResponse =
-  paths['/api/v1/currencies/{id}']['put']['responses'][
+  paths['/api/v1/currencies/{id}']['patch']['responses'][
     | '400'
     | '401'
     | '404'
@@ -56,7 +56,10 @@ export const updateCurrencyApi = async ({
   params: UpdateCurrencyParams
   body: UpdateCurrencyBody
 }): Promise<UpdateCurrencySuccessResponse> => {
-  const response = await axiosInstance.put(`/v1/currencies/${params.id}`, body)
+  const response = await axiosInstance.patch(
+    `/v1/currencies/${params.id}`,
+    body
+  )
 
   return response.data
 }

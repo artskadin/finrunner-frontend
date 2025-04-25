@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Icon, Text, Tooltip } from '@gravity-ui/uikit'
 import { Copy, Pencil, TrashBin } from '@gravity-ui/icons'
 import { User } from '@/shared/api/user'
-import { Currency } from '@/shared/api/v1/currency'
+import { Currency } from '@/shared/api/v1/currencyApi'
 import { iaAvailableForAdmin } from '@/shared/utils/checkUserRules'
 
 import styles from './styles.module.css'

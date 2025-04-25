@@ -8,7 +8,7 @@ import {
   deleteCurrencyApi,
   DeleteCurrencyParams,
   DeleteCurrencySuccessResponse
-} from '@/shared/api/v1/currency'
+} from '@/shared/api/v1/currencyApi'
 
 import styles from './styles.module.css'
 

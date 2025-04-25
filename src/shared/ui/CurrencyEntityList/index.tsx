@@ -24,7 +24,7 @@ function NonMemoCurrencyEntityList<T, P>({
   emptyPlaceholder
 }: CurrencyEntityListProps<T, P>) {
   return (
-    <div>
+    <>
       <div className={styles.entities}>
         {renderHeader && (
           <div className={styles.entities_header}>
@@ -46,12 +46,11 @@ function NonMemoCurrencyEntityList<T, P>({
           )}
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
 export const CurrencyEntityList = React.memo(
   NonMemoCurrencyEntityList
 ) as typeof NonMemoCurrencyEntityList
-
 ;(CurrencyEntityList as React.FC).displayName = 'CurrencyEntityList'

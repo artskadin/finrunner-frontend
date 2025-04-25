@@ -1,0 +1,1 @@
+export { AdminAssetsWidget } from './ui'
