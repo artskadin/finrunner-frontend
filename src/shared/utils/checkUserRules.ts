@@ -1,5 +1,5 @@
 import { User } from '../api/user'
 
-export function iaAvailableForAdmin(userRole: User['role']) {
+export function isAvailableForAdmin(userRole: User['role']) {
   return userRole === 'ADMIN'
 }

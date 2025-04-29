@@ -1,9 +1,14 @@
 import { useCallback, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Button, Modal, Text } from '@gravity-ui/uikit'
-import { Route as CurrencyRoute } from '@/routes/admin/currencies'
 import { Route as AdminRoute } from '@/routes/admin/route'
-import { BlockchainNetwork } from '@/shared/api/v1/blockchainNetworksApi'
+import {
+  BlockchainNetwork,
+  getAvailableBlockchainNetworksApi,
+  getBlockchainNetworksApi
+} from '@/shared/api/v1/blockchainNetworksApi'
 import { CurrencyEntityList } from '@/shared/ui/CurrencyEntityList'
+import { isAvailableForAdmin } from '@/shared/utils/checkUserRules'
 import { BlockchainNetworkItem } from './BlockchainNetworkItem'
 import { BlockchainNetworkForm } from './BlockchainNetworkForm'
 import { DeleteBlockchainMetworkForm } from './DeleteBlockchainNetworkForm'
@@ -11,8 +16,25 @@ import { DeleteBlockchainMetworkForm } from './DeleteBlockchainNetworkForm'
 import styles from './styles.module.css'
 
 export function AdminBlockchainNetworkWidget() {
-  const currencyRouteData = CurrencyRoute.useLoaderData()
   const adminRouteData = AdminRoute.useLoaderData()
+
+  const blockchainNetworksQuery = useQuery({
+    queryKey: ['admin', 'blockchainNetworks', 'getAll'],
+    queryFn: getBlockchainNetworksApi,
+    staleTime: 5 * 60 * 1000
+  })
+  const {
+    data: blockchainNetworks,
+    isError: isBlockchainNetworksError,
+    isLoading: isBlockchainNetworksLoading,
+    refetch: refetchBlockchainNetworks
+  } = blockchainNetworksQuery
+
+  const availableBlockchainNetworksQuery = useQuery({
+    queryKey: ['admin', 'blockchainNetworks', 'getAvailable'],
+    queryFn: getAvailableBlockchainNetworksApi
+  })
+  const { data: availableBlockchainNetworks } = availableBlockchainNetworksQuery
 
   const [
     isCreateBlockchainNetworkModalOpen,
@@ -38,14 +60,13 @@ export function AdminBlockchainNetworkWidget() {
     []
   )
 
-  if (!currencyRouteData || !adminRouteData) {
+  if (!adminRouteData) {
     return null
   }
 
-  const { availableBlockchainNetworks, blockchainNetworks } = currencyRouteData
   const { user } = adminRouteData
 
-  if (!availableBlockchainNetworks || !blockchainNetworks || !user) {
+  if (!user) {
     return null
   }
 
@@ -79,12 +100,15 @@ export function AdminBlockchainNetworkWidget() {
           size='m'
           view='flat-action'
           onClick={handleAddBlockchainNetworkClick}
+          disabled={
+            isBlockchainNetworksLoading || !isAvailableForAdmin(user.role)
+          }
         >
           Добавить
         </Button>
       </div>
     ),
-    [handleAddBlockchainNetworkClick]
+    [handleAddBlockchainNetworkClick, isBlockchainNetworksLoading]
   )
 
   const renderItem = useCallback(
@@ -106,18 +130,20 @@ export function AdminBlockchainNetworkWidget() {
         open={isCreateBlockchainNetworkModalOpen}
         onClose={closeCreateBlockchainNetworkModalHandler}
       >
-        <BlockchainNetworkForm
-          mode='create'
-          availableBlockchainNetworks={availableBlockchainNetworks}
-          onClose={closeCreateBlockchainNetworkModalHandler}
-        />
+        {availableBlockchainNetworks && (
+          <BlockchainNetworkForm
+            mode='create'
+            availableBlockchainNetworks={availableBlockchainNetworks}
+            onClose={closeCreateBlockchainNetworkModalHandler}
+          />
+        )}
       </Modal>
 
       <Modal
         open={!!updatingBlockchainNetworks}
         onClose={closeUpdateBlockchainNetworksModalHandler}
       >
-        {updatingBlockchainNetworks && (
+        {updatingBlockchainNetworks && availableBlockchainNetworks && (
           <BlockchainNetworkForm
             mode='edit'
             availableBlockchainNetworks={availableBlockchainNetworks}
@@ -143,7 +169,7 @@ export function AdminBlockchainNetworkWidget() {
         items={blockchainNetworks}
         getItemId={(item) => item.id}
         renderHeader={() =>
-          renderHeader({ totalCount: blockchainNetworks.length })
+          renderHeader({ totalCount: blockchainNetworks?.length || 0 })
         }
         renderItem={renderItem}
         emptyPlaceholder={
@@ -151,6 +177,10 @@ export function AdminBlockchainNetworkWidget() {
             Список блокчейн сетей пуст
           </Text>
         }
+        isLoading={isBlockchainNetworksLoading}
+        loaderText='Загрузка блокчейн сетей'
+        isError={isBlockchainNetworksError}
+        refetch={refetchBlockchainNetworks}
       />
     </>
   )

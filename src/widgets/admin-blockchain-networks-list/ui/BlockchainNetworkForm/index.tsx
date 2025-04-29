@@ -85,6 +85,10 @@ export function BlockchainNetworkForm({
         queryClient.invalidateQueries({
           queryKey: ['admin', 'cryptoAssets', 'getAll']
         })
+
+        queryClient.invalidateQueries({
+          queryKey: ['admin', 'exchangePairs', 'getAll']
+        })
       },
       onError: (err) => {
         handleError(err)

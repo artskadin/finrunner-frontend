@@ -1,0 +1,47 @@
+.exchange-pair-form_container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 20px 20px;
+  min-width: fit-content;
+}
+
+.exchange-pair-form_content {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+}
+
+.exchange-pair-form_assets {
+  display: flex;
+  gap: 2em;
+}
+
+.exchange-pair-form_asset {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+}
+
+.exchange-pair-form_markup-percentage {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.exchange-pair-form_markup-percentage_input {
+  width: 200px;
+}
+
+.arrow-color {
+  color: #0099ff;
+  margin-top: 6px;
+}
+
+.exchange-pair-form_error {
+  width: 400px;
+}
+
+.exchange-pair-form_action-btn {
+  width: 200px;
+}

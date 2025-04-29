@@ -23,11 +23,11 @@ export function AdminSideBar() {
           <Text variant='body-2'>Дашборд</Text>
         </CustomLink>
         <CustomLink
-          to={'/admin/currencies'}
+          to={'/admin/exchange-pairs'}
           view='primary'
           activeProps={{ className: styles.navigation__active }}
         >
-          <Text variant='body-2'>Валютные пары</Text>
+          <Text variant='body-2'>Обменные пары</Text>
         </CustomLink>
         <CustomLink
           to={'/admin/users'}

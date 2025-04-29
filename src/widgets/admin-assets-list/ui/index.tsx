@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react'
 import { Button, Modal, SegmentedRadioGroup, Text } from '@gravity-ui/uikit'
-import { Route as CurrencyRoute } from '@/routes/admin/currencies'
 import { Route as AdminRoute } from '@/routes/admin/route'
 import {
   CurrencyAssetCard,
@@ -9,22 +8,22 @@ import {
 import { CurrencyAssetWrapper } from './CurrencyAssetWrapper'
 import { CurrencyAssetForm } from './CurrencyAssetForm'
 import { DeleteCurrencyAssetForm } from './DeleteCurrencyAssetForm'
+import { BlockLoader } from '@/shared/ui/BlockLoader'
+import { BlockError } from '@/shared/ui/BlockError'
+import { isAvailableForAdmin } from '@/shared/utils/checkUserRules'
+import { useCryptoAssetsQuery } from '../queries'
 
 import styles from './styles.module.css'
 
 export function AdminAssetsWidget() {
-  const currencyRouteData = CurrencyRoute.useLoaderData()
   const adminRouteData = AdminRoute.useLoaderData()
 
-  if (!currencyRouteData || !adminRouteData) {
-    return null
-  }
-
-  const { cryptoAssets } = currencyRouteData
-
-  if (!cryptoAssets) {
-    return null
-  }
+  const {
+    data: cryptoAssets,
+    isLoading,
+    isError,
+    refetch
+  } = useCryptoAssetsQuery()
 
   const [
     isCreatingCurrencyAssetModalOpen,
@@ -47,6 +46,16 @@ export function AdminAssetsWidget() {
     [setDeletingCurrencyAsset]
   )
 
+  if (!adminRouteData) {
+    return null
+  }
+
+  const { user } = adminRouteData
+
+  if (!user) {
+    return null
+  }
+
   return (
     <div className={styles['admin-assets_container']}>
       <div className={styles['admin-assets_header']}>
@@ -54,7 +63,7 @@ export function AdminAssetsWidget() {
           <Text variant='subheader-3'>
             Список валютных активов{' '}
             <Text variant='subheader-3' color='secondary'>
-              ({cryptoAssets.length})
+              ({cryptoAssets?.length || 0})
             </Text>
           </Text>
 
@@ -62,12 +71,13 @@ export function AdminAssetsWidget() {
             size='m'
             view='flat-action'
             onClick={openCreateCurrencyAssetModalHandler}
+            disabled={isLoading || !isAvailableForAdmin(user.role)}
           >
             Добавить
           </Button>
         </div>
 
-        <SegmentedRadioGroup size='l' defaultValue='all'>
+        <SegmentedRadioGroup size='m' defaultValue='all'>
           <SegmentedRadioGroup.Option value='all'>
             Все активы
           </SegmentedRadioGroup.Option>
@@ -80,26 +90,32 @@ export function AdminAssetsWidget() {
         </SegmentedRadioGroup>
       </div>
 
-      <div className={styles['admin-assets_content']}>
-        {cryptoAssets.map((asset) => (
-          <CurrencyAssetWrapper
-            key={asset.id}
-            assetData={{ assetType: 'crypto', asset }}
-            onEdit={() => {}}
-            onDelete={deleteCurrencyAssetFormHandler}
-          >
-            <CurrencyAssetCard assetType='crypto' asset={asset} />
-          </CurrencyAssetWrapper>
-        ))}
+      {isLoading && <BlockLoader text='Загрузка валютный активов' />}
 
-        {cryptoAssets.length === 0 && (
-          <div className={styles['admin-assets_list__empty']}>
-            <Text variant='body-2' color='secondary'>
-              Список валютных активов пуст
-            </Text>
-          </div>
-        )}
-      </div>
+      {isError && <BlockError text='Не удалось загрузить' refetch={refetch} />}
+
+      {cryptoAssets && (
+        <div className={styles['admin-assets_content']}>
+          {cryptoAssets.map((asset) => (
+            <CurrencyAssetWrapper
+              key={asset.id}
+              assetData={{ assetType: 'crypto', asset }}
+              user={user}
+              onDelete={deleteCurrencyAssetFormHandler}
+            >
+              <CurrencyAssetCard assetType='crypto' asset={asset} />
+            </CurrencyAssetWrapper>
+          ))}
+
+          {cryptoAssets.length === 0 && (
+            <div className={styles['admin-assets_list__empty']}>
+              <Text variant='body-2' color='secondary'>
+                Список валютных активов пуст
+              </Text>
+            </div>
+          )}
+        </div>
+      )}
 
       <Modal
         open={isCreatingCurrencyAssetModalOpen}

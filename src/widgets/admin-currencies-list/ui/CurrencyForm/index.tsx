@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { AxiosError } from 'axios'
-import { useRouter } from '@tanstack/react-router'
 import { useMutation } from '@tanstack/react-query'
 import { Button, Text, TextInput } from '@gravity-ui/uikit'
 import {
@@ -33,7 +32,6 @@ export function CurrencyForm({
   const [fullname, setFullname] = useState(initialData?.fullname || '')
   const [shortname, setShortname] = useState(initialData?.shortname || '')
   const [formError, setFormError] = useState<string | null>(null)
-  const router = useRouter()
 
   const { mutate: createCurrency, isPending: isCreating } = useMutation<
     CreateCurrencySuccessResponse,
@@ -61,6 +59,10 @@ export function CurrencyForm({
       queryClient.invalidateQueries({
         queryKey: ['admin', 'cryptoAssets', 'getAll']
       })
+
+      queryClient.invalidateQueries({
+        queryKey: ['admin', 'exchangePairs', 'getAll']
+      })
     },
     onError: (err) => {
       handleError(err)
@@ -74,9 +76,7 @@ export function CurrencyForm({
       queryKey: ['admin', 'currencies', 'getAll']
     })
 
-    router.invalidate().then(() => {
-      onCLose()
-    })
+    onCLose()
   }
 
   const handleError = (

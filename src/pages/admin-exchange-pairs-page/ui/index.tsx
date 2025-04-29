@@ -1,28 +1,28 @@
-import { Route as CurrencyRoute } from '@/routes/admin/currencies'
 import { Route as AdminRoute } from '@/routes/admin/route'
 import { AdminCurrencyWidget } from '@/widgets/admin-currencies-list'
 import { AdminBlockchainNetworkWidget } from '@/widgets/admin-blockchain-networks-list'
 import { AdminAssetsWidget } from '@/widgets/admin-assets-list'
+import { AdminExchangePairsWidget } from '@/widgets/admin-exchange-pairs-list'
 
 import styles from './styles.module.css'
 
-export function CurrencyPage() {
-  const currencyRouteData = CurrencyRoute.useLoaderData()
+export function ExchangePairsPage() {
   const adminRouteData = AdminRoute.useLoaderData()
 
-  if (!currencyRouteData || !adminRouteData) {
+  if (!adminRouteData) {
     return null
   }
 
-  const { currencies } = currencyRouteData
   const { user } = adminRouteData
 
-  if (!currencies || !user) {
+  if (!user) {
     return null
   }
 
   return (
-    <div className={styles['admin-currency-page_container']}>
+    <div className={styles['admin-exchange-pairs-page_container']}>
+      <AdminExchangePairsWidget />
+
       <AdminAssetsWidget />
 
       <AdminCurrencyWidget />

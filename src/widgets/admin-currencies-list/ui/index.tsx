@@ -1,18 +1,26 @@
 import { useCallback, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Button, Modal, Text } from '@gravity-ui/uikit'
-import { Route as CurrencyRoute } from '@/routes/admin/currencies'
 import { Route as AdminRoute } from '@/routes/admin/route'
 import { CurrencyForm } from './CurrencyForm'
-import { Currency } from '@/shared/api/v1/currencyApi'
+import { Currency, getCurrenciesApi } from '@/shared/api/v1/currencyApi'
 import { CurrencyEntityList } from '@/shared/ui/CurrencyEntityList'
+import { isAvailableForAdmin } from '@/shared/utils/checkUserRules'
 import { DeleteCurrencyForm } from './DeleteCurrencyForm'
 import { CurrencyItem } from './CurrencyItem'
 
 import styles from './styles.module.css'
 
 export function AdminCurrencyWidget() {
-  const currencyRouteData = CurrencyRoute.useLoaderData()
   const adminRouteData = AdminRoute.useLoaderData()
+
+  const currenciesQuery = useQuery({
+    queryKey: ['admin', 'currencies', 'getAll'],
+    queryFn: getCurrenciesApi,
+    staleTime: 5 * 60 * 1000
+  })
+
+  const { data: currencies, isError, isLoading, refetch } = currenciesQuery
 
   const [isCreateCurrencyModalOpen, setIsCreateCurrencyModalOpen] =
     useState(false)
@@ -33,14 +41,7 @@ export function AdminCurrencyWidget() {
     navigator.clipboard.writeText(currencyId)
   }, [])
 
-  if (!currencyRouteData || !adminRouteData) {
-    return null
-  }
-
-  const { currencies } = currencyRouteData
-  const { user } = adminRouteData
-
-  if (!currencies || !user) {
+  if (!adminRouteData) {
     return null
   }
 
@@ -57,6 +58,12 @@ export function AdminCurrencyWidget() {
     []
   )
 
+  const { user } = adminRouteData
+
+  if (!user) {
+    return null
+  }
+
   const renderHeader = useCallback(
     ({ totalCount }: { totalCount: number }) => (
       <div className={styles.currencies_header}>
@@ -67,12 +74,17 @@ export function AdminCurrencyWidget() {
           </Text>
         </Text>
 
-        <Button size='m' view='flat-action' onClick={handleAddCurrencyClick}>
+        <Button
+          size='m'
+          view='flat-action'
+          onClick={handleAddCurrencyClick}
+          disabled={isLoading || !isAvailableForAdmin(user.role)}
+        >
           Добавить
         </Button>
       </div>
     ),
-    [handleAddCurrencyClick]
+    [handleAddCurrencyClick, isLoading]
   )
 
   const renderItem = useCallback(
@@ -125,13 +137,19 @@ export function AdminCurrencyWidget() {
       <CurrencyEntityList<Currency, { totalCount: number }>
         items={currencies}
         getItemId={(item) => item.id}
-        renderHeader={() => renderHeader({ totalCount: currencies.length })}
+        renderHeader={() =>
+          renderHeader({ totalCount: currencies?.length || 0 })
+        }
         renderItem={renderItem}
         emptyPlaceholder={
           <Text variant='body-2' color='secondary'>
             Список валют пуст
           </Text>
         }
+        isLoading={isLoading}
+        loaderText='Загрузка валют'
+        isError={isError}
+        refetch={refetch}
       />
     </>
   )
