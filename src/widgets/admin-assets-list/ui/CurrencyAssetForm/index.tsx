@@ -10,7 +10,6 @@ import {
   Text
 } from '@gravity-ui/uikit'
 import { queryClient } from '@/app/main'
-import { Route as CurrencyRoute } from '@/routes/admin/currencies'
 import { Route as AdminRoute } from '@/routes/admin/route'
 import { CurrencyAssetCard } from '@/shared/ui/CurrencyAsset'
 import {
@@ -21,6 +20,8 @@ import {
   CryptoAsset,
   FiatAsset
 } from '@/shared/api/v1/cryptoAssetApi'
+import { Currency } from '@/shared/api/v1/currencyApi'
+import { BlockchainNetwork } from '@/shared/api/v1/blockchainNetworksApi'
 
 import styles from './styles.module.css'
 
@@ -33,16 +34,24 @@ type DraftAsset =
   | (FiatAsset & { assetType: 'fiat' })
 
 export function CurrencyAssetForm({ onClose }: CurrencyAssetFormProps) {
-  const currencyRouteData = CurrencyRoute.useLoaderData()
   const adminRouteData = AdminRoute.useLoaderData()
 
   const router = useRouter()
 
-  if (!currencyRouteData || !adminRouteData) {
+  if (!adminRouteData) {
     return null
   }
 
-  const { currencies, blockchainNetworks } = currencyRouteData
+  const currencies = queryClient.getQueryData<Currency[]>([
+    'admin',
+    'currencies',
+    'getAll'
+  ])
+  const blockchainNetworks = queryClient.getQueryData<BlockchainNetwork[]>([
+    'admin',
+    'blockchainNetworks',
+    'getAll'
+  ])
 
   // Заглушка
   const fiatProviders = [
@@ -208,7 +217,7 @@ export function CurrencyAssetForm({ onClose }: CurrencyAssetFormProps) {
           <div className={styles['currency-asset-form_block']}>
             <Text variant='body-2'>Выберите тип актива</Text>
             <SegmentedRadioGroup
-              size='l'
+              size='m'
               disabled={isCreatingCryptoAsset}
               onUpdate={handleAssetTypeChange}
               defaultValue='crypto'

@@ -1,0 +1,19 @@
+.archive-exchange-pair-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 20px 20px;
+  min-width: fit-content;
+  width: 400px;
+}
+
+.archive-exchange-pair-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.archive-exchange-pair-actions {
+  display: flex;
+  gap: 0.7em;
+}

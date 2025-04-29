@@ -1,0 +1,5 @@
+.info-popover_content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}

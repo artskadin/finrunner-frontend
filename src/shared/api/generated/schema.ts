@@ -1553,20 +1553,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            fromCurrencyId: string;
-                            /** Format: uuid */
-                            toCurrencyId: string;
-                            markupPercentage: string;
-                            isActive: boolean;
-                            /** Format: date-time */
-                            createdAt: string;
-                            /** Format: date-time */
-                            updatedAt: string | null;
-                        }[];
+                        "application/json": components["schemas"]["exchangePairSchemaResponse"][];
                     };
                 };
                 /** @description Default Response */
@@ -1616,15 +1603,9 @@ export interface paths {
                 path?: never;
                 cookie?: never;
             };
-            requestBody: {
+            requestBody?: {
                 content: {
-                    "application/json": {
-                        /** Format: uuid */
-                        fromCurrencyId: string;
-                        /** Format: uuid */
-                        toCurrencyId: string;
-                        markupPercentage: string;
-                    };
+                    "application/json": components["schemas"]["createExchangePairSchema"];
                 };
             };
             responses: {
@@ -1634,20 +1615,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            fromCurrencyId: string;
-                            /** Format: uuid */
-                            toCurrencyId: string;
-                            markupPercentage: string;
-                            isActive: boolean;
-                            /** Format: date-time */
-                            createdAt: string;
-                            /** Format: date-time */
-                            updatedAt: string | null;
-                        };
+                        "application/json": components["schemas"]["exchangePairSchemaResponse"];
                     };
                 };
                 /** @description Default Response */
@@ -1719,20 +1687,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            fromCurrencyId: string;
-                            /** Format: uuid */
-                            toCurrencyId: string;
-                            markupPercentage: string;
-                            isActive: boolean;
-                            /** Format: date-time */
-                            createdAt: string;
-                            /** Format: date-time */
-                            updatedAt: string | null;
-                        };
+                        "application/json": components["schemas"]["exchangePairSchemaResponse"];
                     };
                 };
                 /** @description Default Response */
@@ -1793,20 +1748,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            fromCurrencyId: string;
-                            /** Format: uuid */
-                            toCurrencyId: string;
-                            markupPercentage: string;
-                            isActive: boolean;
-                            /** Format: date-time */
-                            createdAt: string;
-                            /** Format: date-time */
-                            updatedAt: string | null;
-                        };
+                        "application/json": components["schemas"]["exchangePairSchemaResponse"];
                     };
                 };
                 /** @description Default Response */
@@ -1861,14 +1803,7 @@ export interface paths {
             };
             requestBody?: {
                 content: {
-                    "application/json": {
-                        /** Format: uuid */
-                        fromCurrencyId?: string;
-                        /** Format: uuid */
-                        toCurrencyId?: string;
-                        markupPercentage?: string;
-                        isActive?: boolean;
-                    };
+                    "application/json": components["schemas"]["updateExchangePairBodySchema"];
                 };
             };
             responses: {
@@ -1878,20 +1813,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            fromCurrencyId: string;
-                            /** Format: uuid */
-                            toCurrencyId: string;
-                            markupPercentage: string;
-                            isActive: boolean;
-                            /** Format: date-time */
-                            createdAt: string;
-                            /** Format: date-time */
-                            updatedAt: string | null;
-                        };
+                        "application/json": components["schemas"]["exchangePairSchemaResponse"];
                     };
                 };
                 /** @description Default Response */
@@ -2331,7 +2253,7 @@ export interface components {
             status: "DRAFT" | "PAYMENT" | "UNPAID" | "TRANSACTION_COMPLETE" | "AML_FAILED" | "REPAYMENT" | "COMPLETED";
         };
         /** @description Error type code */
-        apiErrorTypeSchema: ("BAD_REQUEST" | "UNAUTHORIZED" | "INVALID_ACCESS_TOKEN" | "INVALID_REFRESH_TOKEN" | "FORBIDDEN" | "ALREADY_EXISTS" | "INVALID_ID" | "FOREIGN_KEY_CONSTRAINT_VIOLATED" | "NOT_FOUND_NESTED_RECORDS" | "USER_NOT_FUOND" | "USER_BY_USER_ID_NOT_FOUND" | "TG_USERNAME_NOT_FUOND" | "TG_ID_NOT_FUOND" | "OTP_CODES_NOT_MATCH") | ("NETWORK_NOT_FOUND" | "INVALID_BLOCKCHAIN_NETWORK_NAME");
+        apiErrorTypeSchema: ("BAD_REQUEST" | "UNAUTHORIZED" | "INVALID_ACCESS_TOKEN" | "INVALID_REFRESH_TOKEN" | "FORBIDDEN" | "ALREADY_EXISTS" | "INVALID_ID" | "FOREIGN_KEY_CONSTRAINT_VIOLATED" | "NOT_FOUND_NESTED_RECORDS" | "USER_NOT_FUOND" | "USER_BY_USER_ID_NOT_FOUND" | "TG_USERNAME_NOT_FUOND" | "TG_ID_NOT_FUOND" | "OTP_CODES_NOT_MATCH") | ("NETWORK_NOT_FOUND" | "INVALID_BLOCKCHAIN_NETWORK_NAME") | ("SHOULD_ONLY_BE_FROM_FIAT_OR_FROM_CRYPTO" | "SHOULD_ONLY_BE_TO_FIAT_OR_TO_CRYPTO");
         apiErrorResponseSchema: {
             type: components["schemas"]["apiErrorTypeSchema"];
             message: string;
@@ -2430,6 +2352,82 @@ export interface components {
             blockchainNetworkId?: string;
         };
         deleteCryptoAssetParamsSchema: {
+            id: string;
+        };
+        exchangePairSchema: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            fromCryptoAssetId?: string | null;
+            /** Format: uuid */
+            toCryptoAssetId?: string | null;
+            /** Format: uuid */
+            fromFiatAssetId?: string | null;
+            /** Format: uuid */
+            toFiatAssetId?: string | null;
+            markupPercentage: string;
+            /** @enum {string} */
+            status: "ACTIVE" | "INACTIVE" | "ARCHIVED";
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            fromCryptoAsset?: components["schemas"]["cryptoAssetSchema"];
+            toCryptoAsset?: components["schemas"]["cryptoAssetSchema"];
+            fromFiatAsset?: string | null;
+            toFiatAsset?: string | null;
+        };
+        exchangePairSchemaResponse: {
+            /** Format: uuid */
+            id: string;
+            /** Format: uuid */
+            fromCryptoAssetId?: string | null;
+            /** Format: uuid */
+            toCryptoAssetId?: string | null;
+            /** Format: uuid */
+            fromFiatAssetId?: string | null;
+            /** Format: uuid */
+            toFiatAssetId?: string | null;
+            markupPercentage: string;
+            /** @enum {string} */
+            status: "ACTIVE" | "INACTIVE" | "ARCHIVED";
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            fromCryptoAsset?: components["schemas"]["cryptoAssetSchema"];
+            toCryptoAsset?: components["schemas"]["cryptoAssetSchema"];
+            fromFiatAsset?: string | null;
+            toFiatAsset?: string | null;
+        };
+        createExchangePairSchema: {
+            /** Format: uuid */
+            fromCryptoAssetId?: string | null;
+            /** Format: uuid */
+            toCryptoAssetId?: string | null;
+            /** Format: uuid */
+            fromFiatAssetId?: string | null;
+            /** Format: uuid */
+            toFiatAssetId?: string | null;
+            markupPercentage?: string;
+            /** @enum {string} */
+            status?: "ACTIVE" | "INACTIVE" | "ARCHIVED";
+        };
+        getExchangePairByIdSchema: {
+            /** Format: uuid */
+            id: string;
+        };
+        updateExchangePairParamsSchema: {
+            /** Format: uuid */
+            id: string;
+        };
+        updateExchangePairBodySchema: {
+            markupPercentage?: string;
+            /** @enum {string} */
+            status?: "ACTIVE" | "INACTIVE" | "ARCHIVED";
+        };
+        deleteExchangePairSchema: {
+            /** Format: uuid */
             id: string;
         };
     };

@@ -23,8 +23,8 @@ import { Route as authRegisterImport } from './routes/(auth)/register'
 import { Route as authLogoutImport } from './routes/(auth)/logout'
 import { Route as authLoginImport } from './routes/(auth)/login'
 import { Route as AdminUsersIndexImport } from './routes/admin/users/index'
+import { Route as AdminExchangePairsIndexImport } from './routes/admin/exchange-pairs/index'
 import { Route as AdminDashboardIndexImport } from './routes/admin/dashboard/index'
-import { Route as AdminCurrenciesIndexImport } from './routes/admin/currencies/index'
 
 // Create/Update Routes
 
@@ -100,15 +100,15 @@ const AdminUsersIndexRoute = AdminUsersIndexImport.update({
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
-const AdminDashboardIndexRoute = AdminDashboardIndexImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
+const AdminExchangePairsIndexRoute = AdminExchangePairsIndexImport.update({
+  id: '/exchange-pairs/',
+  path: '/exchange-pairs/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
-const AdminCurrenciesIndexRoute = AdminCurrenciesIndexImport.update({
-  id: '/currencies/',
-  path: '/currencies/',
+const AdminDashboardIndexRoute = AdminDashboardIndexImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
@@ -193,18 +193,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesIndexImport
       parentRoute: typeof rootRoute
     }
-    '/admin/currencies/': {
-      id: '/admin/currencies/'
-      path: '/currencies'
-      fullPath: '/admin/currencies'
-      preLoaderRoute: typeof AdminCurrenciesIndexImport
-      parentRoute: typeof AdminRouteImport
-    }
     '/admin/dashboard/': {
       id: '/admin/dashboard/'
       path: '/dashboard'
       fullPath: '/admin/dashboard'
       preLoaderRoute: typeof AdminDashboardIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/exchange-pairs/': {
+      id: '/admin/exchange-pairs/'
+      path: '/exchange-pairs'
+      fullPath: '/admin/exchange-pairs'
+      preLoaderRoute: typeof AdminExchangePairsIndexImport
       parentRoute: typeof AdminRouteImport
     }
     '/admin/users/': {
@@ -220,14 +220,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AdminRouteRouteChildren {
-  AdminCurrenciesIndexRoute: typeof AdminCurrenciesIndexRoute
   AdminDashboardIndexRoute: typeof AdminDashboardIndexRoute
+  AdminExchangePairsIndexRoute: typeof AdminExchangePairsIndexRoute
   AdminUsersIndexRoute: typeof AdminUsersIndexRoute
 }
 
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
-  AdminCurrenciesIndexRoute: AdminCurrenciesIndexRoute,
   AdminDashboardIndexRoute: AdminDashboardIndexRoute,
+  AdminExchangePairsIndexRoute: AdminExchangePairsIndexRoute,
   AdminUsersIndexRoute: AdminUsersIndexRoute,
 }
 
@@ -247,8 +247,8 @@ export interface FileRoutesByFullPath {
   '/exchange': typeof ExchangeIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/rules': typeof RulesIndexRoute
-  '/admin/currencies': typeof AdminCurrenciesIndexRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/admin/exchange-pairs': typeof AdminExchangePairsIndexRoute
   '/admin/users': typeof AdminUsersIndexRoute
 }
 
@@ -264,8 +264,8 @@ export interface FileRoutesByTo {
   '/exchange': typeof ExchangeIndexRoute
   '/profile': typeof ProfileIndexRoute
   '/rules': typeof RulesIndexRoute
-  '/admin/currencies': typeof AdminCurrenciesIndexRoute
   '/admin/dashboard': typeof AdminDashboardIndexRoute
+  '/admin/exchange-pairs': typeof AdminExchangePairsIndexRoute
   '/admin/users': typeof AdminUsersIndexRoute
 }
 
@@ -282,8 +282,8 @@ export interface FileRoutesById {
   '/exchange/': typeof ExchangeIndexRoute
   '/profile/': typeof ProfileIndexRoute
   '/rules/': typeof RulesIndexRoute
-  '/admin/currencies/': typeof AdminCurrenciesIndexRoute
   '/admin/dashboard/': typeof AdminDashboardIndexRoute
+  '/admin/exchange-pairs/': typeof AdminExchangePairsIndexRoute
   '/admin/users/': typeof AdminUsersIndexRoute
 }
 
@@ -301,8 +301,8 @@ export interface FileRouteTypes {
     | '/exchange'
     | '/profile'
     | '/rules'
-    | '/admin/currencies'
     | '/admin/dashboard'
+    | '/admin/exchange-pairs'
     | '/admin/users'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -317,8 +317,8 @@ export interface FileRouteTypes {
     | '/exchange'
     | '/profile'
     | '/rules'
-    | '/admin/currencies'
     | '/admin/dashboard'
+    | '/admin/exchange-pairs'
     | '/admin/users'
   id:
     | '__root__'
@@ -333,8 +333,8 @@ export interface FileRouteTypes {
     | '/exchange/'
     | '/profile/'
     | '/rules/'
-    | '/admin/currencies/'
     | '/admin/dashboard/'
+    | '/admin/exchange-pairs/'
     | '/admin/users/'
   fileRoutesById: FileRoutesById
 }
@@ -396,8 +396,8 @@ export const routeTree = rootRoute
     "/admin": {
       "filePath": "admin/route.tsx",
       "children": [
-        "/admin/currencies/",
         "/admin/dashboard/",
+        "/admin/exchange-pairs/",
         "/admin/users/"
       ]
     },
@@ -428,12 +428,12 @@ export const routeTree = rootRoute
     "/rules/": {
       "filePath": "rules/index.tsx"
     },
-    "/admin/currencies/": {
-      "filePath": "admin/currencies/index.tsx",
-      "parent": "/admin"
-    },
     "/admin/dashboard/": {
       "filePath": "admin/dashboard/index.tsx",
+      "parent": "/admin"
+    },
+    "/admin/exchange-pairs/": {
+      "filePath": "admin/exchange-pairs/index.tsx",
       "parent": "/admin"
     },
     "/admin/users/": {

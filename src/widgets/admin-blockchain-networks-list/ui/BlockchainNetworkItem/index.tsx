@@ -3,7 +3,7 @@ import { Button, Icon, Text, Tooltip } from '@gravity-ui/uikit'
 import { Copy, Pencil, TrashBin } from '@gravity-ui/icons'
 import { User } from '@/shared/api/user'
 import { BlockchainNetwork } from '@/shared/api/v1/blockchainNetworksApi'
-import { iaAvailableForAdmin } from '@/shared/utils/checkUserRules'
+import { isAvailableForAdmin } from '@/shared/utils/checkUserRules'
 
 import styles from './styles.module.css'
 
@@ -45,7 +45,7 @@ function NonMemoBlockchainNetworkItem({
             <Button
               size='m'
               view='flat'
-              disabled={!iaAvailableForAdmin(user.role)}
+              disabled={!isAvailableForAdmin(user.role)}
               onClick={() => onEdit(blockchainNetwork)}
             >
               <Icon data={Pencil} size={16} />
@@ -55,7 +55,7 @@ function NonMemoBlockchainNetworkItem({
             <Button
               size='m'
               view='flat-danger'
-              disabled={!iaAvailableForAdmin(user.role)}
+              disabled={!isAvailableForAdmin(user.role)}
               onClick={() => onDelete(blockchainNetwork)}
             >
               <Icon data={TrashBin} size={16} />

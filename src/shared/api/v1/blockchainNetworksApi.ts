@@ -70,11 +70,12 @@ export const updateBlockchainNetworkApi = async ({
 }: {
   params: UpdateBlockchainNetworkParams
   body: UpdateBlockchainNetworkBody
-}): Promise<BlockchainNetwork> => {
-  const response = await axiosInstance.patch(
-    `/v1/blockchain-networks/${params.id}`,
-    body
-  )
+}): Promise<UpdateBlockchainNetworkSuccessResposnse> => {
+  const response =
+    await axiosInstance.patch<UpdateBlockchainNetworkSuccessResposnse>(
+      `/v1/blockchain-networks/${params.id}`,
+      body
+    )
 
   return response.data
 }
